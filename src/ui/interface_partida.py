@@ -11,7 +11,7 @@ class Partida(tk.Frame):
 
         self.grid_rowconfigure(1, weight=0)
         # Canvas
-        self.canvas = tk.Canvas(self, bg="gray")
+        self.canvas = tk.Canvas(self, bg="black")
         self.canvas.grid(row=0, column=0, sticky="nsew")
 
         # Instancia do motor do jogo
@@ -75,7 +75,7 @@ class Partida(tk.Frame):
             self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turnos")
         else:
             self.label_proximaDetonacao.config(text="Não há bombas posicionadas")
-            
+
     # Renderização
     def desenharMapa(self):
         self.canvas.delete("all")
