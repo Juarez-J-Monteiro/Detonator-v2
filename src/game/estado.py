@@ -18,21 +18,14 @@ class EstadoPersistente:
         self.carregar()
 
     def exibir(self): # Exibi todo o estado persistente no terminal
-        print("\nResumo das Partidas:\n")
-
-        print("{:<40} {}".format("Partidas jogadas:", self.partidasJogadas))
-        print("{:<40} {:.2f}".format("Média de turnos sobrevividos:", self.mediaTurnosVivos))
-        print("{:<40} {:.2f}".format("Média de bombas por partida:", self.mediaBombasPartida))
-        print("{:<40} {}".format("Causa do término:", self.causaTermino))
-
-        print("{:<40} {}".format("Turno da eliminação (última partida):",
-            self.numeroTurnoEliminado if self.numeroTurnoEliminado != -1 else "O jogador não foi eliminado"
-        ))
-
-        print("{:<40} {:.4f}".format(
-            "Taxa de destruição de obstáculos:",
-            self.taxaDestruicaoObstaculo
-        ))
+        return (
+            f"Partidas jogadas: {self.partidasJogadas}\n"
+            f"Média de turnos sobrevividos: {self.mediaTurnosVivos}\n"
+            f"Média de bombas por partida: {self.mediaBombasPartida}\n"
+            f"Causa do término: {self.causaTermino}\n"
+            f"Turno da eliminação (última partida): {self.numeroTurnoEliminado if self.numeroTurnoEliminado != -1 else "O jogador não foi eliminado"} \n"
+            f"Taxa de destruição de obstáculos: {self.taxaDestruicaoObstaculo}"
+        )
 
     def carregar(self): # Carrega as informações do estado persistente caso exista
         if not os.path.exists(self.arquivo):
