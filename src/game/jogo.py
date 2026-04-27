@@ -33,6 +33,7 @@ class Jogo:
 
         self.causaTerminoAtual = ''
 
+        self.emPartida = False
         self.turnos = 0
         self.maxTurnos = int(35 + (self.estado.mediaTurnosVivos // 5)) # Aumenta o limite de turnos quanto maior a média sobrevivida.
 
@@ -337,79 +338,76 @@ class Jogo:
         self.estado.salvar()
         
 
-    def iniciarPartida(self):
-        while self.ehVivo:
-            
-            # Finaliza a partida caso o jogador sobreviva todos os turnos
-            if self.turnos == self.maxTurnos:
-                self.causaTerminoAtual = 'Jogador sobreviveu todos os turnos'
-                self.mapa.exibir()
-                print("Turnos: " + str(self.turnos) + "\nVocê ganhou essa partida!")
-                self.finalizarPartida()
-                break
-            
+    def atualizarPartida(self, comando):
+        # Finaliza a partida caso o jogador sobreviva todos os turnos
+        if self.turnos == self.maxTurnos:
+            self.causaTerminoAtual = 'Jogador sobreviveu todos os turnos'
             self.mapa.exibir()
-            
-            # Exibi mensagem de erro de entrada. 
-            if self.msgErro:
-                print(self.msgErro)
-                self.msgErro = "" # Reseta a mensagem após exibição
-
-            # Exibi o turno atual, alcance e tempo de detonação padrão das bombas
-            print("Turno: " + str(self.turnos) + "/" + str(self.maxTurnos))
-            print("Alcance da bomba: " + str(self.alcanceBomba) + 
-                  " | Tempo de detonação: " + str(self.tempoDetonacao) + " turnos")
-            
-            # Exibi em quanto tempo a próxima bomba explodirá, caso exista.
-            if len(self.listaBombas) != 0:
-                print("Próxima bomba explode em: " + str(self.listaBombas[0].tempoDetonacao) + " turnos")
-
-            # Recebe e verifica as entradas de comando
-            try:
-                if self.turnos != 0:
-                    comando = str(input("Mover (w/a/s/d), posicionar bomba (b) ou (q) para sair: ")).lower()
-                else:
-                    comando = str(input("Mover (w/a/s/d), posicionar bomba (b), \n(r) para resumo de todas as partidas ou (q) para sair: ")).lower()
-            except Exception:
-                print("Erro na leitura do comando.")
-                comando = ""
-
-            if comando not in ('w','a','s','d','q','r','b'):
-                self.msgErro = 'Comando inválido!'
-                continue # Pula direto pro próximo ciclo do while
-
-            # Encerra a execução quando solicitado, sem salvar o estado (partida inválida)
-            if comando == 'q':
-                break
-            
-            # Trata os comando de locomoção
-            if comando in ('w','a','s','d'):
-                turnoAtual = self.turnos
-                self.ehVivo, self.causaTerminoAtual, self.turnos = self.jogador.mover(comando, self.mapa, self.listaInimigos, self.turnos)
-                if self.turnos > turnoAtual:
-                    self.atualizarRodada() # O turno só avança se houver ação do jogador
-
-            # Trata o posicionamento de bomba
-            if comando == 'b':
-                def plantarBomba():
-                    # self.tempoDetonacao + 1 serve para corrigir o turno da bomba diminuindo no mesmo ciclo em que ela é criada.
-                    novaBomba = Bomba(self.jogador.linhaAtual, self.jogador.colunaAtual, self.alcanceBomba, self.tempoDetonacao+1)
-                    self.listaBombas.append(novaBomba)
-                    self.turnos += 1
-                    self.contadorBombas += 1
-                    self.atualizarRodada() # O turno só avança se houver ação do jogador
-
-                for bomba in self.listaBombas:
-                    if bomba.linha == self.jogador.linhaAtual and bomba.coluna == self.jogador.colunaAtual:
-                        self.msgErro = "Esse lugar já tem uma bomba!"
-                        break
-                else:
-                    plantarBomba()
-            
-            if comando == 'r' and self.turnos == 0: # Por escolha de design, o resumo só pode ser visto no começo da execução.
-                self.estado.exibir()
-                break # Logo em seguida encerra o programa.
+            print("Turnos: " + str(self.turnos) + "\nVocê ganhou essa partida!")
+            self.finalizarPartida()
         
+        # self.mapa.exibir()
+        
+        # Exibi mensagem de erro de entrada. 
+        if self.msgErro:
+            print(self.msgErro)
+            self.msgErro = "" # Reseta a mensagem após exibição
+
+        # Exibi o turno atual, alcance e tempo de detonação padrão das bombas
+        print("Turno: " + str(self.turnos) + "/" + str(self.maxTurnos))
+        print("Alcance da bomba: " + str(self.alcanceBomba) + 
+                " | Tempo de detonação: " + str(self.tempoDetonacao) + " turnos")
+        
+        # Exibi em quanto tempo a próxima bomba explodirá, caso exista.
+        if len(self.listaBombas) != 0:
+            print("Próxima bomba explode em: " + str(self.listaBombas[0].tempoDetonacao) + " turnos")
+
+        # Recebe e verifica as entradas de comando
+        # try:
+        #     if self.turnos != 0:
+        #         comando = str(input("Mover (w/a/s/d), posicionar bomba (b) ou (q) para sair: ")).lower()
+        #     else:
+        #         comando = str(input("Mover (w/a/s/d), posicionar bomba (b), \n(r) para resumo de todas as partidas ou (q) para sair: ")).lower()
+        # except Exception:
+        #     print("Erro na leitura do comando.")
+        #     comando = ""
+
+        # if comando not in ('w','a','s','d','q','r','b'):
+        #     self.msgErro = 'Comando inválido!'
+        #     continue # Pula direto pro próximo ciclo do while
+
+        # # Encerra a execução quando solicitado, sem salvar o estado (partida inválida)
+        # if comando == 'q':
+        #     break
+        
+        # Trata os comando de locomoção
+        if comando in ('w','a','s','d'):
+            turnoAtual = self.turnos
+            self.ehVivo, self.causaTerminoAtual, self.turnos = self.jogador.mover(comando, self.mapa, self.listaInimigos, self.turnos)
+            if self.turnos > turnoAtual:
+                self.atualizarRodada() # O turno só avança se houver ação do jogador
+
+        # Trata o posicionamento de bomba
+        if comando == 'b':
+            def plantarBomba():
+                # self.tempoDetonacao + 1 serve para corrigir o turno da bomba diminuindo no mesmo ciclo em que ela é criada.
+                novaBomba = Bomba(self.jogador.linhaAtual, self.jogador.colunaAtual, self.alcanceBomba, self.tempoDetonacao+1)
+                self.listaBombas.append(novaBomba)
+                self.turnos += 1
+                self.contadorBombas += 1
+                self.atualizarRodada() # O turno só avança se houver ação do jogador
+
+            for bomba in self.listaBombas:
+                if bomba.linha == self.jogador.linhaAtual and bomba.coluna == self.jogador.colunaAtual:
+                    self.msgErro = "Esse lugar já tem uma bomba!"
+                    break
+            else:
+                plantarBomba()
+        
+        # if comando == 'r' and self.turnos == 0: # Por escolha de design, o resumo só pode ser visto no começo da execução.
+        #     self.estado.exibir()
+        #     break # Logo em seguida encerra o programa.
+    
         # Trata as causas do término por morte
         if self.causaTerminoAtual in ('Atingido por uma Bomba', 'Inimigo matou', 'Colidiu com inimigo'):
             self.mapa.grade[self.jogador.linhaAtual][self.jogador.colunaAtual] = 'X'
