@@ -88,7 +88,10 @@ class Partida(tk.Frame):
     # Atualiza tudo
     def update(self):
         self.label_turno.config(text=f"Turno: {self.jogo.turnos}/{self.jogo.maxTurnos}")
-
+        if len(self.jogo.listaBombas) != 0:
+            self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turnos")
+        else:
+            self.label_proximaDetonacao.config(text="Não há bombas posicionadas")
     # Renderização
     def desenharMapa(self):
         self.canvas.delete("all")
