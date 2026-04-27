@@ -1,11 +1,27 @@
-from src.game.jogo import Jogo
+import tkinter as tk
 
-jogo = Jogo()
-jogo.iniciarPartida()
+from src.ui.interface_menu import Menu
+from src.ui.interface_partida import Partida
 
-# Modificações com base no estado persistente:
-#
-# -- Quantidade de inimigos iniciais;
-# -- Alcance da bomba;
-# -- Chance de surgir inimigos em cada ponto do mapa;
-# -- Proporção de obstáculos destrutíveis no mapa.
+root = tk.Tk()
+root.geometry("800x600")
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+# funções de troca de tela
+def ir_para_jogo():
+    menu.pack_forget()
+    partida.pack(fill="both", expand=True)
+
+def voltar_menu():
+    partida.pack_forget()
+    menu.pack(fill="both", expand=True)
+
+# cria as telas
+menu = Menu(root, ir_para_jogo)
+partida = Partida(root, voltar_menu)
+
+# começa pelo menu
+menu.pack(fill="both", expand=True)
+
+root.mainloop()
