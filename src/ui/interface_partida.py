@@ -6,18 +6,6 @@ class Partida(tk.Frame):
     def __init__(self, master, voltar_callback):
         super().__init__(master)
 
-        # # root.grid_rowconfigure(0, weight=1)
-        # # root.grid_columnconfigure(0, weight=1)
-        
-        # self.voltar_callback = voltar_callback
-
-        # # Frame Principal
-        # self.frame = tk.Frame(self)
-        # self.frame.grid(row=0, column=0, sticky="nsew")
-
-        # self.frame.grid_rowconfigure(0, weight=1)
-        # self.frame.grid_columnconfigure(0, weight=1)
-
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
@@ -80,11 +68,6 @@ class Partida(tk.Frame):
         elif event.keysym == "b":
             self.jogo.atualizarPartida('b')
 
-    # Redimensionamento
-    # def on_resize(self, event):
-    #     # evita redraw excessivo
-    #     self.after(30, self.desenharMapa())
-
     # Atualiza tudo
     def update(self):
         self.label_turno.config(text=f"Turno: {self.jogo.turnos}/{self.jogo.maxTurnos}")
@@ -92,6 +75,7 @@ class Partida(tk.Frame):
             self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turnos")
         else:
             self.label_proximaDetonacao.config(text="Não há bombas posicionadas")
+            
     # Renderização
     def desenharMapa(self):
         self.canvas.delete("all")
