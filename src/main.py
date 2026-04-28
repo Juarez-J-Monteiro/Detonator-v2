@@ -5,7 +5,7 @@ from src.ui.interface_partida import Partida
 from src.ui.interface_estatisticas import Estatisticas
 
 root = tk.Tk()
-root.geometry("800x600")
+root.geometry("640x600")
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
