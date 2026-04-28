@@ -32,6 +32,11 @@ class Jogo:
         self.ehVivo = True
 
         self.causaTerminoAtual = ''
+        self.mensagens = {
+                'Atingido por uma Bomba': "Uma bomba te atingiu.",
+                'Inimigo matou': "Um inimigo te atingiu.",
+                'Colidiu com inimigo': "Você colidiu com um inimigo."
+            }
 
         self.emPartida = False
         self.turnos = 0
@@ -412,10 +417,5 @@ class Jogo:
         if self.causaTerminoAtual in ('Atingido por uma Bomba', 'Inimigo matou', 'Colidiu com inimigo'):
             self.mapa.grade[self.jogador.linhaAtual][self.jogador.colunaAtual] = 'X'
             self.mapa.exibir()
-            mensagens = {
-                'Atingido por uma Bomba': "Uma bomba te atingiu. Você MORREU!",
-                'Inimigo matou': "Um inimigo te atingiu. Você MORREU!",
-                'Colidiu com inimigo': "Você colidiu com um inimigo. Você MORREU!"
-            }
-            print(mensagens[self.causaTerminoAtual])
+            print(self.mensagens[self.causaTerminoAtual])
             self.finalizarPartida()
