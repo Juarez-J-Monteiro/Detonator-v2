@@ -43,6 +43,12 @@ class Partida(tk.Frame):
 
         self.barraLateral1 = tk.Frame(self, bg="black", width=220)
         self.barraLateral1.grid(row=0, column=1, sticky="nsew")
+        self.barraLateral2 = tk.Frame(self, bg="black", width=180)
+        self.barraLateral2.grid(row=1, column=1, sticky="nsew")
+        self.barraLateral3 = tk.Frame(self, bg="black", width=180)
+        self.barraLateral3.grid(row=2, column=1, sticky="nsew")
+        self.barraLateral4 = tk.Frame(self, bg="black", width=180)
+        self.barraLateral4.grid(row=3, column=1, sticky="nsew")
 
         self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="black", font=("Impact", 26))
         self.label_MiniMenu.pack(side="top", pady=5, padx=20)
