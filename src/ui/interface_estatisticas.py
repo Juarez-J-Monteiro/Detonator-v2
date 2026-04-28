@@ -3,15 +3,17 @@ from src.game.estado import EstadoPersistente  # ajusta o import
 
 class Estatisticas(tk.Frame):
     def __init__(self, master, voltar_callback):
-        super().__init__(master)
+        super().__init__(master, bg="black")
 
         self.estado = EstadoPersistente()
 
         self.label = tk.Label(
             self,
             text=self.estado.exibir(),
-            font=("Impact", 22),
-            justify="left"
+            font=("Impact", 20),
+            justify="left",
+            bg="black",
+            fg="white"
         )
         self.label.pack(pady=40)
         
