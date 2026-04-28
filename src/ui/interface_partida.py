@@ -18,6 +18,7 @@ class Partida(tk.Frame):
         self.canvas.grid(row=0, column=0, sticky="nsew")
 
         self.estadoExecucao = 'Executando' #'Excutando', 'Pausa' ou 'Finalizado'.
+        self.tempoExibicaoMsgErro = 0
 
         # Tamanho das fontes
         flexFontLegenda = 16
@@ -197,8 +198,19 @@ class Partida(tk.Frame):
             self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turno(s)")
         else:
             self.label_proximaDetonacao.config(text="Não há bombas posicionadas")
-        self.label_tempoDetonacao.config(text="Tempo de detonação: " + str(self.jogo.tempoDetonacao))
-        self.label_alcanceBombas.config(text="Alcance da Bomba: " + str(self.jogo.alcanceBomba))
+        if self.jogo.msgErro == "":
+            self.label_tempoDetonacao.config(text="Tempo de detonação: " + str(self.jogo.tempoDetonacao))
+            self.label_alcanceBombas.config(text="Alcance da Bomba: " + str(self.jogo.alcanceBomba), fg="white")
+
+        if self.tempoExibicaoMsgErro != 0:
+            self.tempoExibicaoMsgErro -= 16 # (ms) 1
+            if self.tempoExibicaoMsgErro <= 0:
+                self.jogo.msgErro = ""
+                self.tempoExibicaoMsgErro = 0
+        if self.jogo.msgErro != "" and (self.tempoExibicaoMsgErro == 0):
+            self.label_alcanceBombas.config(fg="red", text=self.jogo.msgErro)
+            self.label_tempoDetonacao.config(text="")
+            self.tempoExibicaoMsgErro = 1000 # (ms)
 
     # Renderização
     def desenharMapa(self):
