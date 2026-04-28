@@ -21,23 +21,26 @@ class Partida(tk.Frame):
         self.barra1 = tk.Frame(self, bg="black", height=60)
         self.barra1.grid(row=1, column=0, sticky="ew")
         self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="black", font=("Impact", 18))
-        self.label_turno.pack(side="left", padx=10)
+        self.label_turno.pack(side="left", padx=8)
+        self.label_msgMorte = tk.Label(self.barra1, text="", 
+                                           fg="red", bg="black", font=("Impact", 18))
+        self.label_msgMorte.pack(side="left", padx=8, expand=False)
 
         self.barra2 = tk.Frame(self, bg="black", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
         self.label_alcanceBombas = tk.Label(self.barra2, text="Alcance da Bomba: " + str(self.jogo.alcanceBomba), 
                                             fg="white", bg="black", font=("Impact", 18))
-        self.label_alcanceBombas.pack(side="left", padx=10)
+        self.label_alcanceBombas.pack(side="left", padx=8)
         self.label_tempoDetonacao = tk.Label(self.barra2, text="Tempo de detonação: " + str(self.jogo.tempoDetonacao), 
                                             fg="white", bg="black", font=("Impact", 18))
-        self.label_tempoDetonacao.pack(side="left", padx=10)
+        self.label_tempoDetonacao.pack(side="left", padx=8)
 
         self.barra3 = tk.Frame(self, bg="black", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
         self.label_proximaDetonacao = tk.Label(self.barra3, 
                                             text="Não há bombas posicionadas", 
                                             fg="white", bg="black", font=("Impact", 18))
-        self.label_proximaDetonacao.pack(side="left", padx=10)
+        self.label_proximaDetonacao.pack(side="left", padx=8)
 
         
         # Tamanho
@@ -57,16 +60,17 @@ class Partida(tk.Frame):
 
     # Input
     def on_key(self, event):
-        if event.keysym == "Up":
-            self.jogo.atualizarPartida('w')
-        elif event.keysym == "Down":
-            self.jogo.atualizarPartida('s')
-        elif event.keysym == "Left":
-            self.jogo.atualizarPartida('a')
-        elif event.keysym == "Right":
-            self.jogo.atualizarPartida('d')
-        elif event.keysym == "b":
-            self.jogo.atualizarPartida('b')
+        if self.jogo.ehVivo:
+            if event.keysym == "Up":
+                self.jogo.atualizarPartida('w')
+            elif event.keysym == "Down":
+                self.jogo.atualizarPartida('s')
+            elif event.keysym == "Left":
+                self.jogo.atualizarPartida('a')
+            elif event.keysym == "Right":
+                self.jogo.atualizarPartida('d')
+            elif event.keysym == "b":
+                self.jogo.atualizarPartida('b')
 
     # Atualiza tudo
     def update(self):
@@ -134,6 +138,7 @@ class Partida(tk.Frame):
         self.update()
         if self.jogo.ehVivo:
             self.desenharMapa()
-
+        else:
+            self.label_msgMorte.configure(text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
         # ~60 FPS (16ms)
         self.master.after(16, self.loop)
