@@ -4,7 +4,7 @@ from src.game.jogo import Jogo
 
 class Partida(tk.Frame):
     def __init__(self, master, voltar_callback):
-        super().__init__(master)
+        super().__init__(master, bg="#262626")
         
         # Instancia do motor do jogo
         self.jogo = Jogo()
@@ -19,81 +19,87 @@ class Partida(tk.Frame):
 
         self.estadoExecucao = 'Executando' #'Excutando', 'Pausa' ou 'Finalizado'.
 
+        # Tamanho das fontes
+        flexFontLegenda = 16
+        flexFontInfo = 18
+        flexFontBotao = 18
+        flexFontMenu = 26
+        flexFontStatus = 22
+
         # Barra inferior de informações
         self.barra1 = tk.Frame(self, bg="#262626", height=60)
         self.barra1.grid(row=1, column=0, sticky="ew")
-        self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="#262626", font=("Impact", 18))
+        self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="#262626", font=("Impact", flexFontInfo))
         self.label_turno.pack(side="left", padx=4)
-        quadradoBomba = tk.Label(self.barra1, bg="magenta", width=2, height="1")
-        quadradoBomba.pack(side="right", padx=5)
-        textoBomba = tk.Label(self.barra1, font=("Impact", 16), text="Bomba", fg="white", bg="#262626")
-        textoBomba.pack(side="right", padx=2)
+        self.quadradoBomba = tk.Label(self.barra1, bg="magenta", width=2, height="1")
+        self.quadradoBomba.pack(side="right", padx=5)
+        self.textoBomba = tk.Label(self.barra1, font=("Impact", flexFontLegenda), text="Bomba", fg="white", bg="#262626")
+        self.textoBomba.pack(side="right", padx=2)
 
 
         self.barra2 = tk.Frame(self, bg="#262626", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
-        self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="#262626", font=("Impact", 18))
+        self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="#262626", font=("Impact", flexFontInfo))
         self.label_inimigosRestantes.pack(side="left", padx=8)
-        quadradoLocalMorte = tk.Label(self.barra2, bg="white", width=2, height="1")
-        quadradoLocalMorte.pack(side="right", padx=5)
-        textoLocalMorte = tk.Label(self.barra2, font=("Impact", 16), text="Local de Morte", fg="white", bg="#262626")
-        textoLocalMorte.pack(side="right", padx=2)
+        self.quadradoLocalMorte = tk.Label(self.barra2, bg="white", width=2, height="1")
+        self.quadradoLocalMorte.pack(side="right", padx=5)
+        self.textoLocalMorte = tk.Label(self.barra2, font=("Impact", flexFontLegenda), text="Local de Morte", fg="white", bg="#262626")
+        self.textoLocalMorte.pack(side="right", padx=2)
 
         self.barra3 = tk.Frame(self, bg="#262626", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
-        self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", 18))
+        self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", flexFontInfo))
         self.label_alcanceBombas.pack(side="left", padx=4) # Também usado para causa do término
-        self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", 18))
+        self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", flexFontInfo))
         self.label_tempoDetonacao.pack(side="left", padx=4)
 
         self.barra4 = tk.Frame(self, bg="#262626", height=60)
         self.barra4.grid(row=4, column=0, sticky="ew")
         self.label_proximaDetonacao = tk.Label(self.barra4, text="Não há bombas posicionadas", 
-                                            fg="white", bg="#262626", font=("Impact", 18))
+                                            fg="white", bg="#262626", font=("Impact", flexFontInfo))
         self.label_proximaDetonacao.pack(side="left", padx=8)
 
         # Barra lateral de menu e status de execução
-        self.barraLateral1 = tk.Frame(self, bg="#262626",width=220)
+        self.barraLateral1 = tk.Frame(self, bg="#262626")
         self.barraLateral1.grid(row=0, column=1, sticky="nsew")
+        self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="#262626", font=("Impact", flexFontMenu))
+        self.label_MiniMenu.pack(side="top", pady=5, padx=48)
 
-        self.barraLateral2 = tk.Frame(self, bg="#262626",width=180)
+        self.barraLateral2 = tk.Frame(self, bg="#262626")
         self.barraLateral2.grid(row=1, column=1, sticky="nsew")
-        quadradoJogador = tk.Label(self.barraLateral2, bg="green", width=2, height=1)
-        quadradoJogador.pack(side="left")
-        textoJogador = tk.Label(self.barraLateral2, font=("Impact", 16), text="Jogador", fg="white", bg="#262626")
-        textoJogador.pack(side="left", padx=10)
+        self.quadradoJogador = tk.Label(self.barraLateral2, bg="green", width=2, height=1)
+        self.quadradoJogador.pack(side="left")
+        self.textoJogador = tk.Label(self.barraLateral2, font=("Impact", flexFontLegenda), text="Jogador", fg="white", bg="#262626")
+        self.textoJogador.pack(side="left", padx=10)
 
-        self.barraLateral3 = tk.Frame(self, bg="#262626",width=180)
+        self.barraLateral3 = tk.Frame(self, bg="#262626")
         self.barraLateral3.grid(row=2, column=1, sticky="nsew")
-        quadradoInimigo = tk.Label(self.barraLateral3, bg="red", width=2, height=1)
-        quadradoInimigo.pack(side="left")
-        textoInimigo = tk.Label(self.barraLateral3, font=("Impact", 16), text="Inimigo", fg="white", bg="#262626")
-        textoInimigo.pack(side="left", padx=10)
+        self.quadradoInimigo = tk.Label(self.barraLateral3, bg="red", width=2, height=1)
+        self.quadradoInimigo.pack(side="left")
+        self.textoInimigo = tk.Label(self.barraLateral3, font=("Impact", flexFontLegenda), text="Inimigo", fg="white", bg="#262626")
+        self.textoInimigo.pack(side="left", padx=10)
 
-        self.barraLateral4 = tk.Frame(self, bg="#262626",width=180)
+        self.barraLateral4 = tk.Frame(self, bg="#262626")
         self.barraLateral4.grid(row=3, column=1, sticky="nsew")
-        quadradoDestrutivel = tk.Label(self.barraLateral4, bg="blue", width=2, height=1)
-        quadradoDestrutivel.pack(side="left")
-        textoDestrutivel = tk.Label(self.barraLateral4, font=("Impact", 16), text="Destrutível", fg="white", bg="#262626")
-        textoDestrutivel.pack(side="left", padx=10)
+        self.quadradoDestrutivel = tk.Label(self.barraLateral4, bg="blue", width=2, height=1)
+        self.quadradoDestrutivel.pack(side="left")
+        self.textoDestrutivel = tk.Label(self.barraLateral4, font=("Impact", flexFontLegenda), text="Destrutível", fg="white", bg="#262626")
+        self.textoDestrutivel.pack(side="left", padx=10)
 
-        self.barraLateral5 = tk.Frame(self, bg="#262626",width=180)
+        self.barraLateral5 = tk.Frame(self, bg="#262626")
         self.barraLateral5.grid(row=4, column=1, sticky="nsew")
-        quadradoIndestrutivel = tk.Label(self.barraLateral5, bg="black", width=2, height="1")
-        quadradoIndestrutivel.pack(side="left")
-        textoIndestrutivel = tk.Label(self.barraLateral5, font=("Impact", 16), text="Indestrutível", fg="white", bg="#262626")
-        textoIndestrutivel.pack(side="left", padx=10)
+        self.quadradoIndestrutivel = tk.Label(self.barraLateral5, bg="black", width=2, height="1")
+        self.quadradoIndestrutivel.pack(side="left")
+        self.textoIndestrutivel = tk.Label(self.barraLateral5, font=("Impact", flexFontLegenda), text="Indestrutível", fg="white", bg="#262626")
+        self.textoIndestrutivel.pack(side="left", padx=10)
 
-        self.label_Status = tk.Label(self.barraLateral1, text="Executando", fg="black", bg="white", font=("Impact", 22))
+        self.label_Status = tk.Label(self.barraLateral1, text="Executando", fg="black", bg="white", font=("Impact", flexFontStatus))
         self.label_Status.pack(side="bottom", pady=5, padx=15)
 
-        self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="#262626", font=("Impact", 26))
-        self.label_MiniMenu.pack(side="top", pady=5, padx=20)
-
-        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", state="active", font=("Impact", 18), 
+        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", state="active", font=("Impact", flexFontBotao), 
                                     command=self.atualizarEstadoExecucao)
         self.botaoPausa.pack(side="top", pady=15, padx=20)
-        self.botaoVoltar = tk.Button(self.barraLateral1, text="Voltar", fg="white", bg="gray", font=("Impact", 18), command=voltar_callback, state="disabled")
+        self.botaoVoltar = tk.Button(self.barraLateral1, text="Voltar", fg="white", bg="gray", font=("Impact", flexFontBotao), command=voltar_callback, state="disabled")
         self.botaoVoltar.pack(side="top", pady=15)
 
         # Tamanho
@@ -105,17 +111,55 @@ class Partida(tk.Frame):
 
         # Input
         self.master.bind("<Key>", self.on_key)
+
+        self.bind("<Configure>", self.on_resize)
         
         self.loop()
     
+    def on_resize(self, event):
+        # Altera o tamanho das fontes conforme o tamanho da janela
+        largura = event.width
+        altura = event.height
+
+        escala = min(largura / 640, altura / 600)
+
+        novoflexFontLegenda = int(16 * escala)
+        novoflexFontInfo = int(18 * escala)
+        novoflexFontBotao = int(18 * escala)
+        novoflexFontMenu = int(26 * escala)
+        novoflexFontStatus = int(22 * escala)
+
+        # evita fonte muito pequena
+        novoflexFontLegenda = max(6, novoflexFontLegenda)
+        novoflexFontInfo = max(8, novoflexFontInfo)
+        novoflexFontBotao = max(8, novoflexFontBotao)
+        novoflexFontMenu = max(16, novoflexFontMenu)
+        novoflexFontStatus = max(12, novoflexFontStatus)
+
+        self.textoBomba.config(font=("Impact", novoflexFontLegenda))
+        self.textoDestrutivel.config(font=("Impact", novoflexFontLegenda))
+        self.textoIndestrutivel.config(font=("Impact", novoflexFontLegenda))
+        self.textoInimigo.config(font=("Impact", novoflexFontLegenda))
+        self.textoJogador.config(font=("Impact", novoflexFontLegenda))
+        self.textoLocalMorte.config(font=("Impact", novoflexFontLegenda))
+        self.label_alcanceBombas.config(font=("Impact", novoflexFontInfo))
+        self.label_inimigosRestantes.config(font=("Impact", novoflexFontInfo))
+        self.label_MiniMenu.config(font=("Impact", novoflexFontMenu))
+        self.label_proximaDetonacao.config(font=("Impact", novoflexFontInfo))
+        self.label_Status.config(font=("Impact", novoflexFontStatus))
+        self.label_tempoDetonacao.config(font=("Impact", novoflexFontInfo))
+        self.label_turno.config(font=("Impact", novoflexFontInfo))
+        self.botaoPausa.config(font=("Impact", novoflexFontBotao))
+        self.botaoVoltar.config(font=("Impact", novoflexFontBotao))
+
     def atualizarEstadoExecucao(self):
         if self.estadoExecucao == 'Executando':
             self.estadoExecucao = 'Pausa'
-            self.label_Status.config(text="Pausado", fg="orange")
+            self.label_Status.config(text="Pausado", fg="orange", padx=21)
             self.botaoPausa.config(text="Retomar")
         else:
             self.estadoExecucao = 'Executando'
-            self.label_Status.config(text="Executando", fg="black")
+            self.label_Status.config(text="Executando", fg="black", padx=2)
             self.botaoPausa.config(text="Pausar")
 
     def iniciarJogo(self):
