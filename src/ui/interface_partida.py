@@ -30,14 +30,19 @@ class Partida(tk.Frame):
 
         self.barra2 = tk.Frame(self, bg="black", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
-        self.label_alcanceBombas = tk.Label(self.barra2, fg="white", bg="black", font=("Impact", 18))
-        self.label_alcanceBombas.pack(side="left", padx=8)
-        self.label_tempoDetonacao = tk.Label(self.barra2, fg="white", bg="black", font=("Impact", 18))
-        self.label_tempoDetonacao.pack(side="left", padx=8)
+        self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="black", font=("Impact", 18))
+        self.label_inimigosRestantes.pack(side="left", padx=8)
 
         self.barra3 = tk.Frame(self, bg="black", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
-        self.label_proximaDetonacao = tk.Label(self.barra3, text="Não há bombas posicionadas", 
+        self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
+        self.label_alcanceBombas.pack(side="left", padx=8)
+        self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
+        self.label_tempoDetonacao.pack(side="left", padx=8)
+
+        self.barra4 = tk.Frame(self, bg="black", height=60)
+        self.barra4.grid(row=4, column=0, sticky="ew")
+        self.label_proximaDetonacao = tk.Label(self.barra4, text="Não há bombas posicionadas", 
                                             fg="white", bg="black", font=("Impact", 18))
         self.label_proximaDetonacao.pack(side="left", padx=8)
 
@@ -50,6 +55,8 @@ class Partida(tk.Frame):
         self.barraLateral3.grid(row=2, column=1, sticky="nsew")
         self.barraLateral4 = tk.Frame(self, bg="black", width=180)
         self.barraLateral4.grid(row=3, column=1, sticky="nsew")
+        self.barraLateral5 = tk.Frame(self, bg="black", width=180)
+        self.barraLateral5.grid(row=4, column=1, sticky="nsew")
 
         self.label_Status = tk.Label(self.barraLateral1, text="Executando", fg="black", bg="white", font=("Impact", 22))
         self.label_Status.pack(side="bottom", pady=5, padx=15)
@@ -114,6 +121,7 @@ class Partida(tk.Frame):
     # Atualiza tudo
     def update(self):
         self.label_turno.config(text=f"Turno: {self.jogo.turnos}/{self.jogo.maxTurnos}")
+        self.label_inimigosRestantes.config(text=f"{len(self.jogo.listaInimigos)} inimigo(s) restante(s)")
         if len(self.jogo.listaBombas) != 0:
             self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turno(s)")
         else:
