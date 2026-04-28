@@ -35,7 +35,8 @@ class Jogo:
         self.mensagens = {
                 'Atingido por uma Bomba': "Uma bomba te atingiu.",
                 'Inimigo matou': "Um inimigo te atingiu.",
-                'Colidiu com inimigo': "Você colidiu com um inimigo."
+                'Colidiu com inimigo': "Você colidiu com um inimigo.",
+                'Jogador sobreviveu todos os turnos': 'Jogador sobreviveu todos os turnos'
             }
 
         self.emPartida = False
@@ -344,12 +345,6 @@ class Jogo:
         
 
     def atualizarPartida(self, comando):
-        # Finaliza a partida caso o jogador sobreviva todos os turnos
-        if self.turnos == self.maxTurnos:
-            self.causaTerminoAtual = 'Jogador sobreviveu todos os turnos'
-            self.mapa.exibir()
-            print("Turnos: " + str(self.turnos) + "\nVocê ganhou essa partida!")
-            self.finalizarPartida()
         
         # self.mapa.exibir()
         
@@ -408,6 +403,14 @@ class Jogo:
                     break
             else:
                 plantarBomba()
+        
+        # Finaliza a partida caso o jogador sobreviva todos os turnos
+        if self.turnos == self.maxTurnos:
+            self.causaTerminoAtual = 'Jogador sobreviveu todos os turnos'
+            self.ehVivo = False
+            self.mapa.exibir()
+            print("Turnos: " + str(self.turnos) + "\nVocê ganhou essa partida!")
+            self.finalizarPartida()
         
         # if comando == 'r' and self.turnos == 0: # Por escolha de design, o resumo só pode ser visto no começo da execução.
         #     self.estado.exibir()

@@ -12,6 +12,7 @@ root.grid_columnconfigure(0, weight=1)
 # funções de troca de tela
 def ir_para_jogo():
     menu.pack_forget()
+    partida.iniciarJogo()
     partida.pack(fill="both", expand=True)
 
 def ir_para_estatisticas():
