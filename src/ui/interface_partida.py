@@ -94,7 +94,7 @@ class Partida(tk.Frame):
     def update(self):
         self.label_turno.config(text=f"Turno: {self.jogo.turnos}/{self.jogo.maxTurnos}")
         if len(self.jogo.listaBombas) != 0:
-            self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turnos")
+            self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turno(s)")
         else:
             self.label_proximaDetonacao.config(text="Não há bombas posicionadas")
         self.label_tempoDetonacao.config(text="Tempo de detonação: " + str(self.jogo.tempoDetonacao))
@@ -135,7 +135,7 @@ class Partida(tk.Frame):
                 if self.jogo.mapa.grade[i][j] == 'J':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="yellow"
+                        fill="green"
                     )
                 if self.jogo.mapa.grade[i][j] == 'I':
                     self.canvas.create_rectangle(
