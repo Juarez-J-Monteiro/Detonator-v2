@@ -24,11 +24,20 @@ class Partida(tk.Frame):
         self.barra1.grid(row=1, column=0, sticky="ew")
         self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="#262626", font=("Impact", 18))
         self.label_turno.pack(side="left", padx=4)
+        quadradoBomba = tk.Label(self.barra1, bg="magenta", width=2, height="1")
+        quadradoBomba.pack(side="right", padx=5)
+        textoBomba = tk.Label(self.barra1, font=("Impact", 16), text="Bomba", fg="white", bg="#262626")
+        textoBomba.pack(side="right", padx=2)
+
 
         self.barra2 = tk.Frame(self, bg="#262626", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
         self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="#262626", font=("Impact", 18))
         self.label_inimigosRestantes.pack(side="left", padx=8)
+        quadradoLocalMorte = tk.Label(self.barra2, bg="white", width=2, height="1")
+        quadradoLocalMorte.pack(side="right", padx=5)
+        textoLocalMorte = tk.Label(self.barra2, font=("Impact", 16), text="Local de Morte", fg="white", bg="#262626")
+        textoLocalMorte.pack(side="right", padx=2)
 
         self.barra3 = tk.Frame(self, bg="#262626", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
