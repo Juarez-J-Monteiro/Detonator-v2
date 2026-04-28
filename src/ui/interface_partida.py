@@ -19,7 +19,7 @@ class Partida(tk.Frame):
 
         self.estadoExecucao = 'Executando' #'Excutando', 'Pausa' ou 'Finalizado'.
 
-        # Barra de Informações
+        # Barra inferior de informações
         self.barra1 = tk.Frame(self, bg="black", height=60)
         self.barra1.grid(row=1, column=0, sticky="ew")
         self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="black", font=("Impact", 18))
@@ -41,6 +41,7 @@ class Partida(tk.Frame):
                                             fg="white", bg="black", font=("Impact", 18))
         self.label_proximaDetonacao.pack(side="left", padx=8)
 
+        # Barra lateral de menu e status de execução
         self.barraLateral1 = tk.Frame(self, bg="black", width=220)
         self.barraLateral1.grid(row=0, column=1, sticky="nsew")
         self.barraLateral2 = tk.Frame(self, bg="black", width=180)
@@ -49,6 +50,9 @@ class Partida(tk.Frame):
         self.barraLateral3.grid(row=2, column=1, sticky="nsew")
         self.barraLateral4 = tk.Frame(self, bg="black", width=180)
         self.barraLateral4.grid(row=3, column=1, sticky="nsew")
+
+        self.label_Status = tk.Label(self.barraLateral1, text="Executando", fg="black", bg="white", font=("Impact", 22))
+        self.label_Status.pack(side="bottom", pady=5, padx=15)
 
         self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="black", font=("Impact", 26))
         self.label_MiniMenu.pack(side="top", pady=5, padx=20)
@@ -74,16 +78,18 @@ class Partida(tk.Frame):
     def atualizarEstadoExecucao(self):
         if self.estadoExecucao == 'Executando':
             self.estadoExecucao = 'Pausa'
+            self.label_Status.config(text="Pausado", fg="orange")
             self.botaoPausa.config(text="Retomar")
         else:
             self.estadoExecucao = 'Executando'
+            self.label_Status.config(text="Executando", fg="black")
             self.botaoPausa.config(text="Pausar")
 
     def iniciarJogo(self):
         self.jogo = Jogo()
 
         self.estadoExecucao = 'Executando'
-
+        self.label_Status.config(text=self.estadoExecucao, fg="black", bg="white")
         # reset visual
         self.label_msgMorte.config(text="")
         self.botaoVoltar.config(state="disabled")
@@ -102,7 +108,7 @@ class Partida(tk.Frame):
                 self.jogo.atualizarPartida('a')
             elif event.keysym == "Right":
                 self.jogo.atualizarPartida('d')
-            elif event.keysym == "b":
+            elif event.keysym == "b" or  event.keysym == "B":
                 self.jogo.atualizarPartida('b')
 
     # Atualiza tudo
@@ -175,10 +181,11 @@ class Partida(tk.Frame):
             self.desenharMapa()
         else:
             if self.jogo.causaTerminoAtual == 'Jogador sobreviveu todos os turnos':
-                self.label_msgMorte.configure(fg="green", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
+                self.label_msgMorte.config(fg="green", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
             else:
-                self.label_msgMorte.configure(fg="red", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
-            self.botaoVoltar.configure(state="active")
+                self.label_msgMorte.config(fg="red", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
+            self.botaoVoltar.configure(state="active", bg="gray")
             self.estadoExecucao = 'Finalizado'
+            self.label_Status.config(text="Finalizado", fg="red")
         # ~60 FPS (16ms)
         self.after(16, self.loop)
