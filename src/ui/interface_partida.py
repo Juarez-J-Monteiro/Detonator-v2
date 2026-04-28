@@ -23,10 +23,7 @@ class Partida(tk.Frame):
         self.barra1 = tk.Frame(self, bg="black", height=60)
         self.barra1.grid(row=1, column=0, sticky="ew")
         self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="black", font=("Impact", 18))
-        self.label_turno.pack(side="left", padx=8)
-        self.label_msgMorte = tk.Label(self.barra1, text="", 
-                                           fg="red", bg="black", font=("Impact", 18))
-        self.label_msgMorte.pack(side="left", padx=8, expand=False)
+        self.label_turno.pack(side="left", padx=4)
 
         self.barra2 = tk.Frame(self, bg="black", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
@@ -36,7 +33,7 @@ class Partida(tk.Frame):
         self.barra3 = tk.Frame(self, bg="black", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
         self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
-        self.label_alcanceBombas.pack(side="left", padx=8)
+        self.label_alcanceBombas.pack(side="left", padx=8) # Também usado para causa do término
         self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
         self.label_tempoDetonacao.pack(side="left", padx=8)
 
@@ -97,9 +94,9 @@ class Partida(tk.Frame):
 
         self.estadoExecucao = 'Executando'
         self.label_Status.config(text=self.estadoExecucao, fg="black", bg="white")
-        self.botaoPausa.configure(state="active")
         # reset visual
-        self.label_msgMorte.config(text="")
+        self.botaoPausa.configure(state="active")
+        self.label_alcanceBombas.config(fg="white")
         self.botaoVoltar.config(state="disabled")
 
         self.update()
@@ -190,9 +187,10 @@ class Partida(tk.Frame):
             self.desenharMapa()
         else:
             if self.jogo.causaTerminoAtual == 'Jogador sobreviveu todos os turnos':
-                self.label_msgMorte.config(fg="green", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
+                self.label_alcanceBombas.config(fg="green", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
             else:
-                self.label_msgMorte.config(fg="red", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
+                self.label_alcanceBombas.config(fg="red", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
+            self.label_tempoDetonacao.config(text="")
             self.botaoVoltar.configure(state="active", bg="gray")
             self.botaoPausa.configure(state="disabled")
             self.estadoExecucao = 'Finalizado'
