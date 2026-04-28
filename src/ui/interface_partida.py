@@ -14,51 +14,71 @@ class Partida(tk.Frame):
 
         self.grid_rowconfigure(1, weight=0)
         # Canvas
-        self.canvas = tk.Canvas(self, bg="black")
+        self.canvas = tk.Canvas(self, bg="#262626")
         self.canvas.grid(row=0, column=0, sticky="nsew")
 
         self.estadoExecucao = 'Executando' #'Excutando', 'Pausa' ou 'Finalizado'.
 
         # Barra inferior de informações
-        self.barra1 = tk.Frame(self, bg="black", height=60)
+        self.barra1 = tk.Frame(self, bg="#262626", height=60)
         self.barra1.grid(row=1, column=0, sticky="ew")
-        self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="black", font=("Impact", 18))
+        self.label_turno = tk.Label(self.barra1, text="Turno: 0/0", fg="white", bg="#262626", font=("Impact", 18))
         self.label_turno.pack(side="left", padx=4)
 
-        self.barra2 = tk.Frame(self, bg="black", height=60)
+        self.barra2 = tk.Frame(self, bg="#262626", height=60)
         self.barra2.grid(row=2, column=0, sticky="ew")
-        self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="black", font=("Impact", 18))
+        self.label_inimigosRestantes = tk.Label(self.barra2, text="0 inimigo(s) restante(s)",fg="white", bg="#262626", font=("Impact", 18))
         self.label_inimigosRestantes.pack(side="left", padx=8)
 
-        self.barra3 = tk.Frame(self, bg="black", height=60)
+        self.barra3 = tk.Frame(self, bg="#262626", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
-        self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
+        self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", 18))
         self.label_alcanceBombas.pack(side="left", padx=4) # Também usado para causa do término
-        self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
+        self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="#262626", font=("Impact", 18))
         self.label_tempoDetonacao.pack(side="left", padx=4)
 
-        self.barra4 = tk.Frame(self, bg="black", height=60)
+        self.barra4 = tk.Frame(self, bg="#262626", height=60)
         self.barra4.grid(row=4, column=0, sticky="ew")
         self.label_proximaDetonacao = tk.Label(self.barra4, text="Não há bombas posicionadas", 
-                                            fg="white", bg="black", font=("Impact", 18))
+                                            fg="white", bg="#262626", font=("Impact", 18))
         self.label_proximaDetonacao.pack(side="left", padx=8)
 
         # Barra lateral de menu e status de execução
-        self.barraLateral1 = tk.Frame(self, bg="black", width=220)
+        self.barraLateral1 = tk.Frame(self, bg="#262626",width=220)
         self.barraLateral1.grid(row=0, column=1, sticky="nsew")
-        self.barraLateral2 = tk.Frame(self, bg="black", width=180)
+
+        self.barraLateral2 = tk.Frame(self, bg="#262626",width=180)
         self.barraLateral2.grid(row=1, column=1, sticky="nsew")
-        self.barraLateral3 = tk.Frame(self, bg="black", width=180)
+        quadradoJogador = tk.Label(self.barraLateral2, bg="green", width=2, height=1)
+        quadradoJogador.pack(side="left")
+        textoJogador = tk.Label(self.barraLateral2, font=("Impact", 16), text="Jogador", fg="white", bg="#262626")
+        textoJogador.pack(side="left", padx=10)
+
+        self.barraLateral3 = tk.Frame(self, bg="#262626",width=180)
         self.barraLateral3.grid(row=2, column=1, sticky="nsew")
-        self.barraLateral4 = tk.Frame(self, bg="black", width=180)
+        quadradoInimigo = tk.Label(self.barraLateral3, bg="red", width=2, height=1)
+        quadradoInimigo.pack(side="left")
+        textoInimigo = tk.Label(self.barraLateral3, font=("Impact", 16), text="Inimigo", fg="white", bg="#262626")
+        textoInimigo.pack(side="left", padx=10)
+
+        self.barraLateral4 = tk.Frame(self, bg="#262626",width=180)
         self.barraLateral4.grid(row=3, column=1, sticky="nsew")
-        self.barraLateral5 = tk.Frame(self, bg="black", width=180)
+        quadradoDestrutivel = tk.Label(self.barraLateral4, bg="blue", width=2, height=1)
+        quadradoDestrutivel.pack(side="left")
+        textoDestrutivel = tk.Label(self.barraLateral4, font=("Impact", 16), text="Destrutível", fg="white", bg="#262626")
+        textoDestrutivel.pack(side="left", padx=10)
+
+        self.barraLateral5 = tk.Frame(self, bg="#262626",width=180)
         self.barraLateral5.grid(row=4, column=1, sticky="nsew")
+        quadradoIndestrutivel = tk.Label(self.barraLateral5, bg="black", width=2, height="1")
+        quadradoIndestrutivel.pack(side="left")
+        textoIndestrutivel = tk.Label(self.barraLateral5, font=("Impact", 16), text="Indestrutível", fg="white", bg="#262626")
+        textoIndestrutivel.pack(side="left", padx=10)
 
         self.label_Status = tk.Label(self.barraLateral1, text="Executando", fg="black", bg="white", font=("Impact", 22))
         self.label_Status.pack(side="bottom", pady=5, padx=15)
 
-        self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="black", font=("Impact", 26))
+        self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="#262626", font=("Impact", 26))
         self.label_MiniMenu.pack(side="top", pady=5, padx=20)
 
         self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", state="active", font=("Impact", 18), 
@@ -147,37 +167,44 @@ class Partida(tk.Frame):
                 if self.jogo.mapa.grade[i][j] == '.':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="gray"
+                        fill="gray",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == '#':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="black"
+                        fill="black",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == '$':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="blue"
+                        fill="blue",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == 'J':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="green"
+                        fill="green",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == 'I':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="red"
+                        fill="red",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == 'B':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="magenta"
+                        fill="magenta",
+                        outline="white"
                     )
                 if self.jogo.mapa.grade[i][j] == 'X':
                     self.canvas.create_rectangle(
                         x1, y1, x2, y2,
-                        fill="white"
+                        fill="white",
+                        outline="white"
                     )
 
     # Loop

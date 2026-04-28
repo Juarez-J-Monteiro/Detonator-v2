@@ -2,9 +2,9 @@ import tkinter as tk
 
 class Menu(tk.Frame):
     def __init__(self, master, ir_para_jogo, ir_para_estatisticas):
-        super().__init__(master, bg="black")
+        super().__init__(master, bg="#262626")
 
-        tk.Label(self, text="DETONATOR", font=("Arial Black", 40), fg="white", bg="black").pack(pady=40)
+        tk.Label(self, text="DETONATOR", font=("Arial Black", 40), fg="white", bg="#262626").pack(pady=40)
 
         tk.Button(self, text="Jogar", font=("Arial Black", 20),
                   command=ir_para_jogo, bg="white", fg="black").pack(pady=10)
