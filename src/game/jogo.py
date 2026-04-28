@@ -341,13 +341,10 @@ class Jogo:
         self.estado.partidasJogadas = partidasNovas
 
         # Salvar o estado
-        self.estado.salvar()
-        
+        self.estado.salvar()     
 
     def atualizarPartida(self, comando):
-        
-        # self.mapa.exibir()
-        
+
         # Exibi mensagem de erro de entrada. 
         if self.msgErro:
             print(self.msgErro)
@@ -362,24 +359,6 @@ class Jogo:
         if len(self.listaBombas) != 0:
             print("Próxima bomba explode em: " + str(self.listaBombas[0].tempoDetonacao) + " turnos")
 
-        # Recebe e verifica as entradas de comando
-        # try:
-        #     if self.turnos != 0:
-        #         comando = str(input("Mover (w/a/s/d), posicionar bomba (b) ou (q) para sair: ")).lower()
-        #     else:
-        #         comando = str(input("Mover (w/a/s/d), posicionar bomba (b), \n(r) para resumo de todas as partidas ou (q) para sair: ")).lower()
-        # except Exception:
-        #     print("Erro na leitura do comando.")
-        #     comando = ""
-
-        # if comando not in ('w','a','s','d','q','r','b'):
-        #     self.msgErro = 'Comando inválido!'
-        #     continue # Pula direto pro próximo ciclo do while
-
-        # # Encerra a execução quando solicitado, sem salvar o estado (partida inválida)
-        # if comando == 'q':
-        #     break
-        
         # Trata os comando de locomoção
         if comando in ('w','a','s','d'):
             turnoAtual = self.turnos
@@ -412,10 +391,6 @@ class Jogo:
             print("Turnos: " + str(self.turnos) + "\nVocê ganhou essa partida!")
             self.finalizarPartida()
         
-        # if comando == 'r' and self.turnos == 0: # Por escolha de design, o resumo só pode ser visto no começo da execução.
-        #     self.estado.exibir()
-        #     break # Logo em seguida encerra o programa.
-    
         # Trata as causas do término por morte
         if self.causaTerminoAtual in ('Atingido por uma Bomba', 'Inimigo matou', 'Colidiu com inimigo'):
             self.mapa.grade[self.jogador.linhaAtual][self.jogador.colunaAtual] = 'X'
