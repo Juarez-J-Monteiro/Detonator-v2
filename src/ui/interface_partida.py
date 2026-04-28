@@ -121,7 +121,7 @@ class Partida(tk.Frame):
 
     # Atualiza tudo
     def update(self):
-        self.label_turno.config(text=f"Turno: {self.jogo.turnos}/{self.jogo.maxTurnos}")
+        self.label_turno.config(text=f"{self.jogo.maxTurnos - self.jogo.turnos} turnos restantes")
         self.label_inimigosRestantes.config(text=f"{len(self.jogo.listaInimigos)} inimigo(s) restante(s)")
         if len(self.jogo.listaBombas) != 0:
             self.label_proximaDetonacao.config(text=f"Próxima bomba explode em: {self.jogo.listaBombas[0].tempoDetonacao} turno(s)")
