@@ -10,7 +10,7 @@ class Estatisticas(tk.Frame):
         self.label = tk.Label(
             self,
             text=self.estado.exibir(),
-            font=("Impact", 19),
+            font=("Impact", 18),
             justify="left",
             bg="#262626",
             fg="white"
@@ -28,11 +28,11 @@ class Estatisticas(tk.Frame):
 
         escala = min(largura / 640, altura / 600)
 
-        novoFlexFontTexto = int(19 * escala)
+        novoFlexFontTexto = int(18 * escala)
         novoFlexFontBotao = int(19 * escala)
 
         # evita fonte muito pequena
-        novoFlexFontTexto = max(8, novoFlexFontTexto)
+        novoFlexFontTexto = max(9, novoFlexFontTexto)
         novoFlexFontBotao = max(9, novoFlexFontBotao)
 
         self.label.config(font=("Impact", novoFlexFontTexto))
