@@ -33,9 +33,9 @@ class Partida(tk.Frame):
         self.barra3 = tk.Frame(self, bg="black", height=60)
         self.barra3.grid(row=3, column=0, sticky="ew")
         self.label_alcanceBombas = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
-        self.label_alcanceBombas.pack(side="left", padx=8) # Também usado para causa do término
+        self.label_alcanceBombas.pack(side="left", padx=4) # Também usado para causa do término
         self.label_tempoDetonacao = tk.Label(self.barra3, fg="white", bg="black", font=("Impact", 18))
-        self.label_tempoDetonacao.pack(side="left", padx=8)
+        self.label_tempoDetonacao.pack(side="left", padx=4)
 
         self.barra4 = tk.Frame(self, bg="black", height=60)
         self.barra4.grid(row=4, column=0, sticky="ew")
@@ -186,6 +186,7 @@ class Partida(tk.Frame):
         if self.jogo.ehVivo:
             self.desenharMapa()
         else:
+            self.desenharMapa()
             if self.jogo.causaTerminoAtual == 'Jogador sobreviveu todos os turnos':
                 self.label_alcanceBombas.config(fg="green", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
             else:
