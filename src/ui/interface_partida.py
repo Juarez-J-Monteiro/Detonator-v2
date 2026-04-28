@@ -64,7 +64,7 @@ class Partida(tk.Frame):
         self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="black", font=("Impact", 26))
         self.label_MiniMenu.pack(side="top", pady=5, padx=20)
 
-        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", fg="white", bg="gray", font=("Impact", 18), 
+        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", state="active", font=("Impact", 18), 
                                     command=self.atualizarEstadoExecucao)
         self.botaoPausa.pack(side="top", pady=15, padx=20)
         self.botaoVoltar = tk.Button(self.barraLateral1, text="Voltar", fg="white", bg="gray", font=("Impact", 18), command=voltar_callback, state="disabled")
@@ -97,6 +97,7 @@ class Partida(tk.Frame):
 
         self.estadoExecucao = 'Executando'
         self.label_Status.config(text=self.estadoExecucao, fg="black", bg="white")
+        self.botaoPausa.configure(state="active")
         # reset visual
         self.label_msgMorte.config(text="")
         self.botaoVoltar.config(state="disabled")
@@ -193,6 +194,7 @@ class Partida(tk.Frame):
             else:
                 self.label_msgMorte.config(fg="red", text=self.jogo.mensagens[self.jogo.causaTerminoAtual])
             self.botaoVoltar.configure(state="active", bg="gray")
+            self.botaoPausa.configure(state="disabled")
             self.estadoExecucao = 'Finalizado'
             self.label_Status.config(text="Finalizado", fg="red")
         # ~60 FPS (16ms)
