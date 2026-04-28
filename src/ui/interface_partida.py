@@ -5,6 +5,7 @@ from src.game.jogo import Jogo
 class Partida(tk.Frame):
     def __init__(self, master, voltar_callback):
         super().__init__(master)
+        
         # Instancia do motor do jogo
         self.jogo = Jogo()
 
@@ -15,7 +16,6 @@ class Partida(tk.Frame):
         # Canvas
         self.canvas = tk.Canvas(self, bg="black")
         self.canvas.grid(row=0, column=0, sticky="nsew")
-
 
         self.estadoExecucao = 'Executando' #'Excutando', 'Pausa' ou 'Finalizado'.
 
@@ -61,11 +61,7 @@ class Partida(tk.Frame):
 
         # Input
         self.master.bind("<Key>", self.on_key)
-
-        # Redimensionar
-        # self.canvas.bind("<Configure>", self.on_resize)
         
-
         self.loop()
     
     def iniciarJogo(self):
@@ -106,7 +102,6 @@ class Partida(tk.Frame):
 
     # Renderização
     def desenharMapa(self):
-        #print("Desenhei")
         self.canvas.delete("all")
 
         largura = self.canvas.winfo_width()

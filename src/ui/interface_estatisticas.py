@@ -16,3 +16,8 @@ class Estatisticas(tk.Frame):
         self.label.pack(pady=40)
         
         tk.Button(self, text="Voltar", command=voltar_callback, font=("Impact", 20)).pack()
+
+    def atualizar(self):
+        self.estado = EstadoPersistente()
+        self.estado.carregar()
+        self.label.config(text=self.estado.exibir())

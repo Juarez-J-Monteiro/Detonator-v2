@@ -17,6 +17,7 @@ def ir_para_jogo():
 
 def ir_para_estatisticas():
     menu.pack_forget()
+    estatisticas.atualizar()
     estatisticas.pack(fill="both", expand=True)
 
 def voltar_menu():
