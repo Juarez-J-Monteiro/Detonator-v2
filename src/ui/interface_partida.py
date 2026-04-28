@@ -106,7 +106,7 @@ class Partida(tk.Frame):
 
     # Renderização
     def desenharMapa(self):
-        print("Desenhei")
+        #print("Desenhei")
         self.canvas.delete("all")
 
         largura = self.canvas.winfo_width()
