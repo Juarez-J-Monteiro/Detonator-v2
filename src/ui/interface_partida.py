@@ -53,7 +53,8 @@ class Partida(tk.Frame):
         self.label_MiniMenu = tk.Label(self.barraLateral1, text="Menu", fg="white", bg="black", font=("Impact", 26))
         self.label_MiniMenu.pack(side="top", pady=5, padx=20)
 
-        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", fg="white", bg="gray", font=("Impact", 18))
+        self.botaoPausa = tk.Button(self.barraLateral1, text="Pausar", fg="white", bg="gray", font=("Impact", 18), 
+                                    command=self.atualizarEstadoExecucao)
         self.botaoPausa.pack(side="top", pady=15, padx=20)
         self.botaoVoltar = tk.Button(self.barraLateral1, text="Voltar", fg="white", bg="gray", font=("Impact", 18), command=voltar_callback, state="disabled")
         self.botaoVoltar.pack(side="top", pady=15)
@@ -70,6 +71,14 @@ class Partida(tk.Frame):
         
         self.loop()
     
+    def atualizarEstadoExecucao(self):
+        if self.estadoExecucao == 'Executando':
+            self.estadoExecucao = 'Pausa'
+            self.botaoPausa.config(text="Retomar")
+        else:
+            self.estadoExecucao = 'Executando'
+            self.botaoPausa.config(text="Pausar")
+
     def iniciarJogo(self):
         self.jogo = Jogo()
 
